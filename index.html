@@ -73,10 +73,10 @@
             margin-top:8px;
         }
 
-        /* 对战选手大图区域 */
+        /* 对战Banner */
         .fight-banner{
             position:relative;
-            height:260px;
+            height:280px;
             border-radius:16px;
             overflow:hidden;
             display:flex;
@@ -85,24 +85,21 @@
         .side-left, .side-right{
             flex:1;
             position:relative;
-            transition: all 0.4s ease;
+            transition: all 0.45s ease;
+            display:flex;
+            flex-direction:column;
+            gap:12px;
+            align-items:center;
+            justify-content:center;
+            padding:0;
         }
         .side-left{
             background:linear-gradient(90deg,#702c10,#3b1c0e);
-            display:flex;
-            flex-direction:column;
-            justify-content:center;
-            padding-left:24px;
         }
         .side-right{
             background:linear-gradient(-90deg,#423b18,#272410);
-            display:flex;
-            flex-direction:column;
-            justify-content:center;
-            align-items:flex-end;
-            padding-right:24px;
         }
-        /* 未选中状态变暗，选中高亮 */
+
         .fight-banner.not-select .side-left,.fight-banner.not-select .side-right{
             filter: brightness(0.75);
         }
@@ -163,13 +160,82 @@
             50%{box-shadow:0 0 36px #ffaa33;}
         }
 
-        .fight-img-mid{
-            position:absolute;
-            height:220px;
-            left:50%;
-            top:20px;
-            transform:translateX(-50%);
-            z-index:1;
+        /* 3D立体头像 */
+        .fighter-avatar-wrapper {
+            width: 130px;
+            height: 130px;
+            position: relative;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.08), transparent 70%);
+            box-shadow:
+                inset 0 0 35px rgba(255, 255, 255, 0.08),
+                0 0 25px rgba(0, 0, 0, 0.8);
+            transform-style: preserve-3d;
+            transition: all 0.45s ease;
+        }
+
+        .fighter-avatar {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+            display: block;
+            transition: all 0.45s ease;
+            transform: translateZ(12px);
+            filter: drop-shadow(0 12px 18px rgba(0, 0, 0, 0.45));
+        }
+
+        .garcia-avatar {
+            border: 3px solid rgba(255, 140, 40, 0.55);
+            box-shadow:
+                0 0 18px rgba(255, 140, 40, 0.55),
+                inset 0 0 18px rgba(255, 140, 40, 0.15);
+        }
+        .benn-avatar {
+            border: 3px solid rgba(255, 196, 44, 0.55);
+            box-shadow:
+                0 0 18px rgba(255, 196, 44, 0.55),
+                inset 0 0 18px rgba(255, 196, 44, 0.15);
+        }
+
+        /* 选中Garcia头像动效：放大+橙光+描边 */
+        .fight-banner.select-left .garcia-avatar {
+            transform: translateZ(18px) scale(1.08);
+            border-color: #ff7a00;
+            box-shadow:
+                0 0 35px rgba(255, 122, 0, 0.9),
+                0 0 70px rgba(255, 122, 0, 0.55),
+                inset 0 0 22px rgba(255, 255, 255, 0.35);
+            filter:
+                drop-shadow(0 0 12px rgba(255, 122, 0, 0.85))
+                drop-shadow(0 0 24px rgba(255, 122, 0, 0.55));
+        }
+        /* 选中Benn头像动效：放大+金光+描边 */
+        .fight-banner.select-right .benn-avatar {
+            transform: translateZ(18px) scale(1.08);
+            border-color: #ffd700;
+            box-shadow:
+                0 0 35px rgba(255, 215, 0, 0.9),
+                0 0 70px rgba(255, 215, 0, 0.55),
+                inset 0 0 22px rgba(255, 255, 255, 0.35);
+            filter:
+                drop-shadow(0 0 12px rgba(255, 215, 0, 0.85))
+                drop-shadow(0 0 24px rgba(255, 215, 0, 0.55));
+        }
+
+        .fight-banner.not-select .fighter-avatar {
+            filter: brightness(0.65) drop-shadow(0 8px 12px rgba(0, 0, 0, 0.35));
+        }
+        .fight-banner.not-select .fighter-avatar-wrapper {
+            opacity: 0.65;
+        }
+        .fight-banner.select-left .side-left .fighter-avatar-wrapper {
+            opacity: 1;
+            transform: translateZ(8px);
+        }
+        .fight-banner.select-right .side-right .fighter-avatar-wrapper {
+            opacity: 1;
+            transform: translateZ(8px);
         }
 
         .predict-label{
@@ -251,7 +317,8 @@
             height:6px;
             background:#2c2d36;
             border-radius:4px;
-            margin-top:12px;
+            margin-top:-8px;
+            margin-bottom:20px;
         }
         .progress-fill{
             height:100%;
@@ -293,19 +360,27 @@
             <div class="desc-text">Predict the decision winner & claim luxury rewards</div>
         </div>
 
-        <!--对战Banner，选中会联动亮度光晕，移除了生硬切换-->
         <div class="fight-banner not-select" id="fightBanner">
+            <!-- 左侧 Garcia -->
             <div class="side-left">
+                <div class="fighter-avatar-wrapper">
+                    <img class="fighter-avatar garcia-avatar" src="./garcia.png" alt="Garcia">
+                </div>
                 <div class="player-name-big left-name">GARCIA</div>
                 <div class="player-sub">RYAN "KING"</div>
             </div>
-            <img class="fight-img-mid" alt="boxer vs">
-            <div class="side-right">
-                <div class="player-name-big right-name">BENN</div>
-                <div class="player-sub">CONOR "THE DESTROYER"</div>
-            </div>
+
             <div class="vs-center-wrap">
                 <div class="vs-circle">VS</div>
+            </div>
+
+            <!-- 右侧 Benn -->
+            <div class="side-right">
+                <div class="fighter-avatar-wrapper">
+                    <img class="fighter-avatar benn-avatar" src="./benn.png" alt="Benn">
+                </div>
+                <div class="player-name-big right-name">BENN</div>
+                <div class="player-sub">CONOR "THE DESTROYER"</div>
             </div>
         </div>
 
@@ -339,7 +414,6 @@
             <div class="progress-fill" style="width:28%"></div>
         </div>
 
-        <!-- 删除原来底部灰色 Prediction Locked，替换成提交按钮 -->
         <button class="submit-btn" id="submitBtn" disabled>Submit My Prediction</button>
     </div>
 
@@ -351,13 +425,11 @@
 
     items.forEach(item=>{
         item.addEventListener('click',()=>{
-            //清除全部active
             items.forEach(i=>i.classList.remove('active'));
             item.classList.add('active');
             selectedVal = item.dataset.val;
             submitBtn.disabled = false;
 
-            //联动banner图片区域的高亮/变暗动画，消除生硬跳转
             banner.className = 'fight-banner';
             if(selectedVal === 'garcia'){
                 banner.classList.add('select-left');
