@@ -152,16 +152,6 @@
                 drop-shadow(0 22px 28px rgba(0,0,0,0.8))
                 drop-shadow(14px 0 20px rgba(255,215,0,0.32));
         }
-        .fighter-half img {
-    /* 核心属性：正片叠底，过滤纯白背景 */
-    mix-blend-mode: multiply; 
-    
-    /* 保证图片居中且自适应填充 */
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* 或 contain */
-    display: block;
-}
         /* 地面径向投影，模拟人物站在banner里面 */
         .fighter-figure::after{
             content:"";
