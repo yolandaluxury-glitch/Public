@@ -295,8 +295,8 @@
             height: clamp(72px, 15vw, 90px);
             border-radius: 50%;
             background: radial-gradient(circle, #000 0%, #111 100%);
-            border: 4px solid transparent;
-            border-image: linear-gradient(135deg, #ff7700, #ffd700, #ff7700) 1;
+            /* border-image 会忽略圆角而渲染成方框；改用普通圆形描边 */
+            border: 4px solid #ffd700;
             box-shadow:
                 0 0 22px rgba(255, 119, 0, 0.8),
                 0 0 42px rgba(255, 119, 0, 0.45);
@@ -627,9 +627,10 @@
         submitBtn.textContent = isLocked ? t.locked : t.submit;
         if(isLocked) ticketInfo.innerHTML = `${t.ticket}<br><strong>${ticketInfo.dataset.code}</strong>`;
     }
-    function makeCode(){
+    function makeCode(choice){
         const random = crypto.getRandomValues(new Uint32Array(2));
-        return `VIP-${random[0].toString(36).toUpperCase()}-${random[1].toString(36).toUpperCase()}`;
+        const fighter = choice === 'garcia' ? 'RYAN-GARCIA' : 'CONOR-BENN';
+        return `VIP-${fighter}-${random[0].toString(36).toUpperCase()}-${random[1].toString(36).toUpperCase()}`;
     }
     function lockPrediction(value, code){
         selectedVal = value;
@@ -658,7 +659,7 @@
     });
     submitBtn.addEventListener('click',()=>{
         if(!selectedVal || isLocked) return;
-        const code = makeCode();
+        const code = makeCode(selectedVal);
         localStorage.setItem(storageKey, JSON.stringify({choice:selectedVal, code:code}));
         lockPrediction(selectedVal, code);
     });
@@ -668,7 +669,14 @@
     if(saved){
         try{
             const prediction = JSON.parse(saved);
-            if(['garcia','benn'].includes(prediction.choice) && prediction.code) lockPrediction(prediction.choice, prediction.code);
+            if(['garcia','benn'].includes(prediction.choice) && prediction.code){
+                const fighterName = prediction.choice === 'garcia' ? 'RYAN-GARCIA' : 'CONOR-BENN';
+                if(!prediction.code.includes(fighterName)){
+                    prediction.code = makeCode(prediction.choice);
+                    localStorage.setItem(storageKey, JSON.stringify(prediction));
+                }
+                lockPrediction(prediction.choice, prediction.code);
+            }
         }catch(error){ localStorage.removeItem(storageKey); }
     }
     applyLanguage(languageSelect.value);
