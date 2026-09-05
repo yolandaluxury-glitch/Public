@@ -76,6 +76,20 @@
             background: linear-gradient(180deg, #ffdd78, #b88c20);
             -webkit-background-clip: text;
             color: transparent;
+            margin-bottom: 8px;
+        }
+
+        .event-date {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 215, 0, 0.35);
+            border-radius: 20px;
+            padding: 8px 16px;
+            color: #ffd700;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
         }
 
         .desc-text {
@@ -138,7 +152,7 @@
             filter: brightness(0.55);
         }
 
-        /* 拳手人物：整个人物立体站在上方 */
+        /* 拳手人物：更强去除灰底 */
         .fighter-figure {
             position: absolute;
             bottom: 0;
@@ -157,7 +171,16 @@
             height: 100%;
             object-fit: contain;
             object-position: center bottom;
-            filter: drop-shadow(0 18px 35px rgba(0, 0, 0, 0.45));
+
+            /* 增强去灰底，提升对比度，弱化背景灰色噪点 */
+            mix-blend-mode: normal;
+            filter:
+                drop-shadow(0 18px 35px rgba(0, 0, 0, 0.45))
+                brightness(1.15)
+                contrast(1.25)
+                saturate(1.25)
+                hue-rotate(2deg);
+
             transition: all 0.45s ease;
         }
 
@@ -192,7 +215,10 @@
             filter:
                 drop-shadow(0 0 12px rgba(255, 122, 0, 0.85))
                 drop-shadow(0 0 24px rgba(255, 122, 0, 0.55))
-                drop-shadow(0 18px 35px rgba(0, 0, 0, 0.45));
+                drop-shadow(0 18px 35px rgba(0, 0, 0, 0.45))
+                brightness(1.20)
+                contrast(1.30)
+                saturate(1.30);
         }
 
         .fight-banner.select-right .figure-benn {
@@ -203,7 +229,10 @@
             filter:
                 drop-shadow(0 0 12px rgba(255, 215, 0, 0.85))
                 drop-shadow(0 0 24px rgba(255, 215, 0, 0.55))
-                drop-shadow(0 18px 35px rgba(0, 0, 0, 0.45));
+                drop-shadow(0 18px 35px rgba(0, 0, 0, 0.45))
+                brightness(1.20)
+                contrast(1.30)
+                saturate(1.30);
         }
 
         /* 中间 VS 创新能量环 */
@@ -289,7 +318,7 @@
             }
         }
 
-        /* 选手名字 */
+        /* 选手名字与描述保留 */
         .player-name-big {
             font-size: clamp(20px, 4.5vw, 32px);
             font-weight: 900;
@@ -496,6 +525,10 @@
         <div class="title-area">
             <div class="sub-head">★ TO FABULOUS LAS VEGAS ★</div>
             <h1>Championship Night</h1>
+
+            <!-- 比赛日期 -->
+            <div class="event-date">September 12 • 8pm ET • on Paramount</div>
+
             <div class="desc-text">Predict the decision winner & claim luxury rewards</div>
         </div>
 
