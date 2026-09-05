@@ -15,407 +15,434 @@
         body {
             background: #030406;
             color: #f1f2f6;
-            padding: 18px 10px;
+            padding: 20px 10px;
             display: flex;
             justify-content: center;
             min-height: 100vh;
-            align-items: flex-start;
+            align-items: center;
         }
 
         .prediction-card {
-            width: min(100%, 860px);
-            background: linear-gradient(145deg, #12141b, #0a0b10);
-            border-radius: 24px;
-            padding: 18px 14px 24px;
-            border: 1px solid rgba(255, 183, 43, 0.27);
-            box-shadow: 0 0 40px rgba(255, 136, 0, 0.15);
+            width: min(92vw,860px);
+            background: linear-gradient(145deg,#12141b,#0a0b10);
+            border-radius:24px;
+            padding:28px 24px;
+            border:1px solid #ffb72b44;
+            box-shadow: 0 0 40px #ff880026;
         }
 
         .header-bar {
-            display: flex;
+            display:flex;
             justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-            gap: 12px;
+            align-items:center;
+            margin-bottom:24px;
         }
-
         .vip-tag {
-            background: linear-gradient(90deg, #ff6700, #ffbc2c);
-            color: #000;
-            font-weight: bold;
-            padding: 7px 18px;
-            border-radius: 30px;
-            font-size: 12px;
-            letter-spacing: 1px;
+            background:linear-gradient(90deg,#ff6700,#ffbc2c);
+            color:#000;
+            font-weight:bold;
+            padding:8px 22px;
+            border-radius:30px;
         }
-
         .lang-select {
-            background: #222328;
-            border: 1px solid rgba(255, 193, 56, 0.44);
-            color: #fff;
-            padding: 7px 12px;
-            border-radius: 12px;
-            font-size: 12px;
+            background:#222328;
+            border:1px solid #ffc13870;
+            color:#fff;
+            padding:8px 14px;
+            border-radius:12px;
         }
 
-        .title-area {
-            text-align: center;
-            margin-bottom: 22px;
+        .title-area{
+            text-align:center;
+            margin-bottom:26px;
+        }
+        .sub-head{
+            color:#ffd370;
+            letter-spacing:2px;
+            font-size:15px;
+            margin-bottom:10px;
+        }
+        h1{
+            font-size:42px;
+            background:linear-gradient(180deg,#ffdd78,#b88c20);
+            -webkit-background-clip:text;
+            color:transparent;
+        }
+        .desc-text{
+            color:#b4b8c3;
+            margin-top:8px;
         }
 
-        .sub-head {
-            color: #ffd370;
-            letter-spacing: 2px;
-            font-size: 13px;
-            margin-bottom: 8px;
+        /* 对战Banner */
+        .fight-banner{
+            position:relative;
+            height:280px;
+            border-radius:16px;
+            overflow:hidden;
+            display:flex;
+            margin-bottom:28px;
         }
-
-        h1 {
-            font-size: clamp(28px, 5.5vw, 42px);
-            background: linear-gradient(180deg, #ffdd78, #b88c20);
-            -webkit-background-clip: text;
-            color: transparent;
-            margin-bottom: 8px;
-        }
-
-        .event-date {
-            display: inline-block;
-            background: rgba(255, 255, 255, 0.06);
-            border: 1px solid rgba(255, 215, 0, 0.35);
-            border-radius: 20px;
-            padding: 8px 16px;
-            color: #ffd700;
-            font-size: 13px;
-            font-weight: 700;
-            letter-spacing: 1px;
-            margin-bottom: 10px;
-        }
-
-        .desc-text {
-            color: #b4b8c3;
-            margin-top: 6px;
-            font-size: 13px;
-            line-height: 1.45;
-        }
-
-        /* 对战人物区域 */
-        .fight-banner {
-            position: relative;
-            height: clamp(240px, 52vw, 320px);
-            border-radius: 16px;
-            overflow: hidden;
-            display: flex;
-            margin-bottom: 24px;
-        }
-
-        .side-left,
-        .side-right {
-            flex: 1;
-            position: relative;
+        .side-left, .side-right{
+            flex:1;
+            position:relative;
             transition: all 0.45s ease;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: flex-end;
-            padding-bottom: 18px;
+            display:flex;
+            flex-direction:column;
+            gap:12px;
+            align-items:center;
+            justify-content:center;
+            padding:0;
+        }
+        .side-left{
+            background:linear-gradient(90deg,#702c10,#3b1c0e);
+        }
+        .side-right{
+            background:linear-gradient(-90deg,#423b18,#272410);
         }
 
-        .side-left {
-            background: linear-gradient(90deg, #702c10, #3b1c0e);
+        .fight-banner.not-select .side-left,.fight-banner.not-select .side-right{
+            filter: brightness(0.75);
+        }
+        .fight-banner.select-left .side-left{
+            filter:brightness(1.15);
+            box-shadow: inset 0 0 60px #ff800055;
+        }
+        .fight-banner.select-left .side-right{
+            filter:brightness(0.55);
+        }
+        .fight-banner.select-right .side-right{
+            filter:brightness(1.15);
+            box-shadow: inset 0 0 60px #ffc42255;
+        }
+        .fight-banner.select-right .side-left{
+            filter:brightness(0.55);
         }
 
-        .side-right {
-            background: linear-gradient(-90deg, #423b18, #272410);
+        .player-name-big{
+            font-size:44px;
+            font-weight:900;
+        }
+        .left-name{
+            color:#ff8c28;
+        }
+        .right-name{
+            color:#e9c252;
+        }
+        .player-sub{
+            font-size:16px;
+            opacity:0.8;
         }
 
-        .fight-banner.not-select .side-left,
-        .fight-banner.not-select .side-right {
-            filter: brightness(0.68);
+        .vs-center-wrap{
+            position:absolute;
+            left:50%;
+            top:50%;
+            transform:translate(-50%,-50%);
+            z-index:2;
+        }
+        .vs-circle{
+            width:86px;
+            height:86px;
+            border-radius:50%;
+            background:#000;
+            border:4px solid #ff7700;
+            box-shadow: 0 0 22px #ff7700;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            font-size:28px;
+            font-weight:bold;
+            color:#fff;
+            animation: vsPulse 2.2s infinite ease-in-out;
+        }
+        @keyframes vsPulse{
+            0%,100%{box-shadow:0 0 22px #ff7700;}
+            50%{box-shadow:0 0 36px #ffaa33;}
         }
 
-        .fight-banner.select-left .side-left {
-            filter: brightness(1.18);
-            box-shadow: inset 0 0 70px rgba(255, 128, 0, 0.35);
-        }
-
-        .fight-banner.select-left .side-right {
-            filter: brightness(0.55);
-        }
-
-        .fight-banner.select-right .side-right {
-            filter: brightness(1.18);
-            box-shadow: inset 0 0 70px rgba(255, 196, 34, 0.35);
-        }
-
-        .fight-banner.select-right .side-left {
-            filter: brightness(0.55);
-        }
-
-        /* 拳手人物：统一暗色海报风格，不硬抠图 */
-        .fighter-figure {
-            position: absolute;
-            bottom: 0;
-            width: 42%;
-            height: 78%;
-            display: flex;
-            align-items: flex-end;
-            justify-content: center;
+        /* 3D立体头像 */
+        .fighter-avatar-wrapper {
+            width: 130px;
+            height: 130px;
+            position: relative;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.08), transparent 70%);
+            box-shadow:
+                inset 0 0 35px rgba(255, 255, 255, 0.08),
+                0 0 25px rgba(0, 0, 0, 0.8);
+            transform-style: preserve-3d;
             transition: all 0.45s ease;
-            transform-origin: center bottom;
-            z-index: 2;
         }
 
-        .fighter-figure img {
+        .fighter-avatar {
             width: 100%;
             height: 100%;
-            object-fit: contain;
-            object-position: center bottom;
-
-            /* 统一成黑金暗色体育海报风 */
-            filter:
-                drop-shadow(0 0 18px rgba(0, 0, 0, 0.85))
-                drop-shadow(0 12px 24px rgba(0, 0, 0, 0.95))
-                brightness(0.92)
-                contrast(1.18)
-                saturate(1.35)
-                sepia(0.18);
-
-            transition: all 0.45s ease;
-        }
-
-        /* 人物底部暗色渐变遮罩，让人物和页面融合 */
-        .fighter-figure::before {
-            content: "";
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 42%;
-            background: linear-gradient(to top, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.55), transparent);
-            z-index: 3;
-            pointer-events: none;
-        }
-
-        /* 人物底部光晕，代替抠图边缘 */
-        .fighter-figure::after {
-            content: "";
-            position: absolute;
-            bottom: -12px;
-            left: 50%;
-            width: 76%;
-            height: 22px;
-            background: radial-gradient(circle, rgba(255, 174, 0, 0.35), transparent 70%);
+            object-fit: cover;
             border-radius: 50%;
-            transform: translateX(-50%);
-            filter: blur(12px);
+            display: block;
             transition: all 0.45s ease;
-            z-index: 2;
+            transform: translateZ(12px);
+            filter: drop-shadow(0 12px 18px rgba(0, 0, 0, 0.45));
         }
 
-        .figure-garcia {
-            left: 4%;
+        .garcia-avatar {
+            border: 3px solid rgba(255, 140, 40, 0.55);
+            box-shadow:
+                0 0 18px rgba(255, 140, 40, 0.55),
+                inset 0 0 18px rgba(255, 140, 40, 0.15);
+        }
+        .benn-avatar {
+            border: 3px solid rgba(255, 196, 44, 0.55);
+            box-shadow:
+                0 0 18px rgba(255, 196, 44, 0.55),
+                inset 0 0 18px rgba(255, 196, 44, 0.15);
         }
 
-        .figure-benn {
-            right: 4%;
-        }
-
-        /* 选中时人物轻微放大 + 金色/橙色外发光 */
-        .fight-banner.select-left .figure-garcia {
-            transform: scale(1.06);
-        }
-
-        .fight-banner.select-left .figure-garcia img {
+        /* 选中Garcia头像动效：放大+橙光+描边 */
+        .fight-banner.select-left .garcia-avatar {
+            transform: translateZ(18px) scale(1.08);
+            border-color: #ff7a00;
+            box-shadow:
+                0 0 35px rgba(255, 122, 0, 0.9),
+                0 0 70px rgba(255, 122, 0, 0.55),
+                inset 0 0 22px rgba(255, 255, 255, 0.35);
             filter:
                 drop-shadow(0 0 12px rgba(255, 122, 0, 0.85))
-                drop-shadow(0 0 22px rgba(255, 122, 0, 0.55))
-                drop-shadow(0 12px 24px rgba(0, 0, 0, 0.95))
-                brightness(1.05)
-                contrast(1.25)
-                saturate(1.45)
-                sepia(0.22);
+                drop-shadow(0 0 24px rgba(255, 122, 0, 0.55));
         }
-
-        .fight-banner.select-right .figure-benn {
-            transform: scale(1.06);
-        }
-
-        .fight-banner.select-right .figure-benn img {
+        /* 选中Benn头像动效：放大+金光+描边 */
+        .fight-banner.select-right .benn-avatar {
+            transform: translateZ(18px) scale(1.08);
+            border-color: #ffd700;
+            box-shadow:
+                0 0 35px rgba(255, 215, 0, 0.9),
+                0 0 70px rgba(255, 215, 0, 0.55),
+                inset 0 0 22px rgba(255, 255, 255, 0.35);
             filter:
                 drop-shadow(0 0 12px rgba(255, 215, 0, 0.85))
-                drop-shadow(0 0 22px rgba(255, 215, 0, 0.55))
-                drop-shadow(0 12px 24px rgba(0, 0, 0, 0.95))
-                brightness(1.05)
-                contrast(1.25)
-                saturate(1.45)
-                sepia(0.22);
+                drop-shadow(0 0 24px rgba(255, 215, 0, 0.55));
         }
 
-        /* 中间 VS 创新能量环 */
-        .vs-center-wrap {
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 3;
-            width: clamp(70px, 14vw, 90px);
-            height: clamp(70px, 14vw, 90px);
+        .fight-banner.not-select .fighter-avatar {
+            filter: brightness(0.65) drop-shadow(0 8px 12px rgba(0, 0, 0, 0.35));
+        }
+        .fight-banner.not-select .fighter-avatar-wrapper {
+            opacity: 0.65;
+        }
+        .fight-banner.select-left .side-left .fighter-avatar-wrapper {
+            opacity: 1;
+            transform: translateZ(8px);
+        }
+        .fight-banner.select-right .side-right .fighter-avatar-wrapper {
+            opacity: 1;
+            transform: translateZ(8px);
         }
 
-        .vs-circle {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(0, 0, 0, 0.95), rgba(0, 0, 0, 0.85));
-            border: 3px solid transparent;
-            border-image: linear-gradient(135deg, #ff7700, #ffd700, #ff7700) 1;
-            box-shadow:
-                0 0 20px rgba(255, 119, 0, 0.8),
-                0 0 40px rgba(255, 119, 0, 0.45);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: clamp(24px, 4.8vw, 30px);
-            font-weight: 900;
-            color: #fff;
-            letter-spacing: 1px;
-            position: relative;
-        }
-
-        .vs-circle::before,
-        .vs-circle::after {
-            content: "";
-            position: absolute;
-            border-radius: 50%;
-            border: 2px solid rgba(255, 215, 0, 0.35);
-            animation: vsRipple 1.8s infinite ease-out;
-        }
-
-        .vs-circle::before {
-            width: 160%;
-            height: 160%;
-            animation-delay: 0s;
-        }
-
-        .vs-circle::after {
-            width: 210%;
-            height: 210%;
-            animation-delay: 0.9s;
-        }
-
-        @keyframes vsRipple {
-            0% {
-                transform: scale(0.5);
-                opacity: 0.9;
-            }
-            100% {
-                transform: scale(1.6);
-                opacity: 0;
-            }
-        }
-
-        .vs-inner-glow {
-            position: absolute;
-            width: 62%;
-            height: 62%;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(255, 215, 0, 0.25), transparent 70%);
-            animation: innerPulse 2.2s infinite ease-in-out;
-        }
-
-        @keyframes innerPulse {
-            0%, 100% {
-                opacity: 0.65;
-                transform: scale(1);
-            }
-            50% {
-                opacity: 1;
-                transform: scale(1.15);
-            }
-        }
-
-        /* 选手名字与描述 */
-        .player-name-big {
-            font-size: clamp(20px, 4.5vw, 32px);
-            font-weight: 900;
-            position: relative;
-            z-index: 4;
-            margin-top: 12px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .left-name {
-            color: #ff8c28;
-            text-shadow:
-                0 0 8px rgba(255, 122, 0, 0.8),
-                0 0 16px rgba(255, 122, 0, 0.5);
-        }
-
-        .right-name {
-            color: #e9c252;
-            text-shadow:
-                0 0 8px rgba(255, 215, 0, 0.8),
-                0 0 16px rgba(255, 215, 0, 0.5);
-        }
-
-        .player-sub {
-            font-size: 12px;
-            opacity: 0.85;
-            position: relative;
-            z-index: 4;
-            margin-top: 4px;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            color: rgba(255, 255, 255, 0.75);
-        }
-
-        .predict-label {
-            font-size: 15px;
-            color: #ffd066;
-            font-weight: bold;
-            margin-bottom: 12px;
-            letter-spacing: 1px;
+        .predict-label{
+            font-size:17px;
+            color:#ffd066;
+            font-weight:bold;
+            margin-bottom:14px;
+            letter-spacing:1px;
         }
 
         /* 竞猜选项卡片 */
-        .option-item {
-            border-radius: 16px;
+        .option-item{
+            border-radius:16px;
             border: 2px solid transparent;
-            background: #181920;
-            padding: 16px;
-            margin-bottom: 14px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            cursor: pointer;
-            transition: 0.35s all ease;
-            flex-wrap: wrap;
-            gap: 12px;
+            background:#181920;
+            padding:20px;
+            margin-bottom:16px;
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            cursor:pointer;
+            transition:0.35s all ease;
         }
-
-        .option-item:hover {
-            background: #1e2029;
+        .option-item:hover{
+            background:#1e2029;
         }
-
-        .option-item.active {
-            border-color: #ffbc2c;
-            background: #232420;
-            box-shadow: 0 0 24px rgba(255, 179, 34, 0.25);
-            transform: scale(1.02);
+        .option-item.active{
+            border-color:#ffbc2c;
+            background:#232420;
+            box-shadow:0 0 24px #ffb32240;
+            transform: scale(1.015);
         }
-
-        .option-left {
-            display: flex;
-            gap: 14px;
-            align-items: center;
+        .option-left{
+            display:flex;
+            gap:14px;
+            align-items:center;
         }
+        .radio-circle{
+            width:24px;height:24px;
+            border-radius:50%;
+            border:2px solid #666;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            transition:0.3s;
+        }
+        .option-item.active .radio-circle{
+            border-color:#ffc830;
+        }
+        .radio-circle::after{
+            content:"";
+            width:12px;height:12px;
+            border-radius:50%;
+            background:#ffc830;
+            transform:scale(0);
+            transition:0.28s transform ease;
+        }
+        .option-item.active .radio-circle::after{
+            transform:scale(1);
+        }
+        .option-title{
+            font-size:20px;
+            font-weight:bold;
+        }
+        .option-desc{
+            color:#a0a4b0;
+            font-size:14px;
+            margin-top:3px;
+        }
+        .voucher-tag{
+            background:linear-gradient(90deg,#b48418,#e2b432);
+            color:#000;
+            font-weight:bold;
+            padding:10px 18px;
+            border-radius:10px;
+        }
+        .progress-bar-wrap{
+            width:100%;
+            height:6px;
+            background:#2c2d36;
+            border-radius:4px;
+            margin-top:-8px;
+            margin-bottom:20px;
+        }
+        .progress-fill{
+            height:100%;
+            background:linear-gradient(90deg,#ff6b00,#ffd233);
+            border-radius:4px;
+            transition:width 0.5s ease;
+        }
+        .submit-btn{
+            width:100%;
+            padding:16px;
+            margin-top:10px;
+            border-radius:14px;
+            border:none;
+            font-weight:bold;
+            font-size:18px;
+            background:linear-gradient(90deg,#ff7000,#ffc52b);
+            color:#000;
+            cursor:pointer;
+            transition:0.3s;
+        }
+        .submit-btn:disabled{
+            opacity:0.35;
+            cursor:not-allowed;
+        }
+    </style>
+</head>
+<body>
+    <div class="prediction-card">
+        <div class="header-bar">
+            <div class="vip-tag">VIP EXCLUSIVE PREDICTION</div>
+            <select class="lang-select">
+                <option>English</option>
+            </select>
+        </div>
 
-        .radio-circle {
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            border: 2px solid #666;
-            display: flex;
-            align-items:<[SILENT_never_used_51bce0c785ca2f68081bfa7d91973934]>
+        <div class="title-area">
+            <div class="sub-head">★ TO FABULOUS LAS VEGAS ★</div>
+            <h1>Championship Night</h1>
+            <div class="desc-text">Predict the decision winner & claim luxury rewards</div>
+        </div>
+
+        <div class="fight-banner not-select" id="fightBanner">
+            <!-- 左侧 Garcia -->
+            <div class="side-left">
+                <div class="fighter-avatar-wrapper">
+                    <img class="fighter-avatar garcia-avatar" src="./garcia.png" alt="Garcia">
+                </div>
+                <div class="player-name-big left-name">GARCIA</div>
+                <div class="player-sub">RYAN "KING"</div>
+            </div>
+
+            <div class="vs-center-wrap">
+                <div class="vs-circle">VS</div>
+            </div>
+
+            <!-- 右侧 Benn -->
+            <div class="side-right">
+                <div class="fighter-avatar-wrapper">
+                    <img class="fighter-avatar benn-avatar" src="./benn.png" alt="Benn">
+                </div>
+                <div class="player-name-big right-name">BENN</div>
+                <div class="player-sub">CONOR "THE DESTROYER"</div>
+            </div>
+        </div>
+
+        <div class="predict-label">PREDICT DECISION WINNER</div>
+
+        <div class="option-item" data-val="garcia">
+            <div class="option-left">
+                <div class="radio-circle"></div>
+                <div>
+                    <div class="option-title">Ryan Garcia Win</div>
+                    <div class="option-desc">Win via Judges' Scorecards</div>
+                </div>
+            </div>
+            <div class="voucher-tag">200 USD Voucher</div>
+        </div>
+        <div class="progress-bar-wrap">
+            <div class="progress-fill" style="width:72%"></div>
+        </div>
+
+        <div class="option-item" data-val="benn">
+            <div class="option-left">
+                <div class="radio-circle"></div>
+                <div>
+                    <div class="option-title">Conor Benn Win</div>
+                    <div class="option-desc">Win via Judges' Scorecards</div>
+                </div>
+            </div>
+            <div class="voucher-tag">100 USD Voucher</div>
+        </div>
+        <div class="progress-bar-wrap">
+            <div class="progress-fill" style="width:28%"></div>
+        </div>
+
+        <button class="submit-btn" id="submitBtn" disabled>Submit My Prediction</button>
+    </div>
+
+<script>
+    const banner = document.getElementById('fightBanner');
+    const items = document.querySelectorAll('.option-item');
+    const submitBtn = document.getElementById('submitBtn');
+    let selectedVal = null;
+
+    items.forEach(item=>{
+        item.addEventListener('click',()=>{
+            items.forEach(i=>i.classList.remove('active'));
+            item.classList.add('active');
+            selectedVal = item.dataset.val;
+            submitBtn.disabled = false;
+
+            banner.className = 'fight-banner';
+            if(selectedVal === 'garcia'){
+                banner.classList.add('select-left');
+            }else if(selectedVal === 'benn'){
+                banner.classList.add('select-right');
+            }
+        })
+    })
+
+    submitBtn.addEventListener('click',()=>{
+        if(!selectedVal) return;
+        alert(`Your prediction submitted: ${selectedVal}`);
+    })
+</script>
+</body>
+</html>
