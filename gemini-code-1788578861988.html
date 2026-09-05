@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VIP Exclusive - Las Vegas Championship Prediction</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+        
+        body { 
+            background: #030406;
+            color: #f1f2f6; 
+            padding: 20px 10px; 
+            display: flex; 
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        #bgCanvas {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.65;
+        }
+
+        .card { 
+            width: 100%; 
+            max-width: 450px; 
+            background: rgba(12, 14, 20, 0.92); 
+            border-radius: 28px; 
+            padding: 24px 20px; 
+            box-shadow: 0 30px 80px rgba(0,0,0,0.95), 0 0 50px rgba(255, 69, 0, 0.25), 0 0 20px rgba(212, 175, 55, 0.3); 
+            border: 1px solid rgba(212, 175, 55, 0.4); 
+            backdrop-filter: blur(25px);
+            position: relative;
+            z-index: 10;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; height: 3px;
+            background: linear-gradient(90deg, transparent, #ff4500, #ffe066, #ff4500, transparent);
+            box-shadow: 0 0 15px #ff4500;
+        }
+
+        .top-bar { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            margin-bottom: 14px; 
+        }
+
+        .tag { 
+            background: linear-gradient(135deg, #ff4500, #d4af37); 
+            color: #000; 
+            padding: 5px 14px; 
+            font-size: 10px; 
+            border-radius: 20px; 
+            font-weight: 900; 
+            letter-spacing: 1.5px;
+            text-transform: uppercase; 
+            box-shadow: 0 0 15px rgba(255, 69, 0, 0.6);
+            display: inline-block;
+        }
+
+        .lang-select {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(212, 175, 55, 0.5);
+            color: #ffe066;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 700;
+            outline: none;
+            cursor: pointer;
+            position: relative;
+            z-index: 20;
+        }
+        .lang-select option { background: #0f1219; color: #fff; }
+
+        .header { text-align: center; margin-bottom: 18px; }
+        
+        .vegas-badge {
+            display: inline-block;
+            font-size: 10px;
+            font-weight: 800;
+            color: #d4af37;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            text-shadow: 0 0 8px rgba(212, 175, 55, 0.8);
+            margin-bottom: 4px;
+        }
+
+        .title { 
+            font-size: 24px; 
+            font-weight: 900; 
+            letter-spacing: -0.5px;
+            background: linear-gradient(180deg, #ffffff 20%, #ffe066 60%, #d4af37 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.8);
+        }
+        .subtitle { font-size: 11px; color: #a0a5b5; margin-top: 4px; }
+
+        .poster-hero-stage {
+            position: relative;
+            width: 100%;
+            height: 180px;
+            border-radius: 20px;
+            overflow: hidden;
+            margin-bottom: 22px;
+            border: 1px solid rgba(212, 175, 55, 0.5);
+            background: #000;
+            display: flex;
+            box-shadow: inset 0 0 30px rgba(0,0,0,0.9), 0 10px 25px rgba(0,0,0,0.8);
+        }
+
+        .fighter-half {
+            flex: 1;
+            height: 100%;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 15px;
+            transition: all 0.4s ease;
+        }
+
+        .fighter-garcia {
+            background: linear-gradient(135deg, rgba(255, 69, 0, 0.4) 0%, rgba(10, 10, 15, 0.85) 80%);
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .fighter-benn {
+            background: linear-gradient(225deg, rgba(212, 175, 55, 0.35) 0%, rgba(10, 10, 15, 0.85) 80%);
+        }
+
+        .fighter-name-large {
+            font-size: 26px;
+            font-weight: 900;
+            font-style: italic;
+            text-transform: uppercase;
+            line-height: 0.9;
+            letter-spacing: 1px;
+            z-index: 2;
+        }
+        .garcia-text {
+            background: linear-gradient(180deg, #ffffff, #ff7b00);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .benn-text {
+            background: linear-gradient(180deg, #ffffff, #ffe066);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-align: right;
+        }
+
+        .fighter-subtext {
+            font-size: 9px;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            color: rgba(255,255,255,0.6);
+            margin-top: 4px;
+            text-transform: uppercase;
+        }
+
+        .vs-badge-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 52px;
+            height: 52px;
+            background: radial-gradient(circle, #ff4500 0%, #000 80%);
+            border: 2px solid #ffe066;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            font-weight: 900;
+            color: #fff;
+            font-style: italic;
+            box-shadow: 0 0 25px #ff4500, 0 0 10px #ffe066;
+            z-index: 5;
+        }
+
+        .poster-hero-stage.active-garcia .fighter-garcia { flex: 1.3; }
+        .poster-hero-stage.active-garcia .fighter-benn { opacity: 0.4; }
+        .poster-hero-stage.active-benn .fighter-benn { flex: 1.3; }
+        .poster-hero-stage.active-benn .fighter-garcia { opacity: 0.4; }
+
+        .section-title { 
+            font-size: 11px; 
+            color: #d4af37; 
+            font-weight: 800; 
+            margin-bottom: 12px; 
+            text-transform: uppercase; 
+            letter-spacing: 1.5px;
+            display: flex;
+            align-items: center;
+        }
+
+        .option-group { 
+            display: flex; 
+            flex-direction: column; 
+            gap: 12px; 
+            margin-bottom: 18px; 
+            position: relative;
+            z-index: 20; /* 确保卡片置顶可点 */
+        }
+        
+        .option-card { 
+            display: flex; 
+            flex-direction: column;
+            background: linear-gradient(135deg, rgba(25, 30, 42, 0.85) 0%, rgba(15, 18, 26, 0.95) 100%); 
+            border: 1px solid rgba(255, 255, 255, 0.12); 
+            border-radius: 16px; 
+            padding: 14px 16px; 
+            cursor: pointer; 
+            transition: all 0.2s ease-in-out;
+            position: relative;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .option-card-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            pointer-events: none; /* 内部元素不拦截点击，直接触发外部卡片 */
+        }
+
+        .option-card:hover:not(.locked) {
+            border-color: rgba(212, 175, 55, 0.8);
+            transform: translateY(-2px);
+        }
+
+        .option-card.selected { 
+            border-color: #d4af37; 
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.25) 0%, rgba(20, 24, 33, 0.95) 100%); 
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+        }
+
+        .check-mark {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 2px solid rgba(255,255,255,0.3);
+            margin-right: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .option-card.selected .check-mark {
+            background: #d4af37;
+            border-color: #d4af37;
+        }
+
+        .check-mark::after {
+            content: '';
+            width: 5px;
+            height: 9px;
+            border: solid #000;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+            display: none;
+            margin-bottom: 2px;
+        }
+
+        .option-card.selected .check-mark::after { display: block; }
+
+        .option-left { display: flex; align-items: center; }
+        .option-info { display: flex; flex-direction: column; }
+        .option-title { font-size: 14px; font-weight: 800; color: #fff; }
+        .option-desc { font-size: 10px; color: #8a8d9b; margin-top: 2px; }
+        
+        .reward-badge { 
+            background: linear-gradient(135deg, #d4af37 0%, #aa7c11 100%); 
+            color: #000; 
+            font-size: 11px; 
+            font-weight: 900; 
+            padding: 6px 12px; 
+            border-radius: 10px; 
+            white-space: nowrap;
+        }
+
+        .progress-bar-bg {
+            width: 100%;
+            height: 4px;
+            background: rgba(255,255,255,0.08);
+            border-radius: 2px;
+            margin-top: 10px;
+            overflow: hidden;
+            pointer-events: none;
+        }
+        .progress-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #ff4500, #ffe066);
+        }
+
+        .submit-btn { 
+            width: 100%; 
+            background: linear-gradient(135deg, #ffe066 0%, #d4af37 50%, #aa7c11 100%); 
+            color: #000; 
+            border: none; 
+            padding: 16px; 
+            border-radius: 16px; 
+            font-size: 15px; 
+            font-weight: 900; 
+            cursor: pointer; 
+            position: relative;
+            z-index: 20;
+            letter-spacing: 0.5px;
+            transition: all 0.25s ease;
+        }
+        
+        .submit-btn:disabled {
+            background: linear-gradient(135deg, #555 0%, #333 100%);
+            color: #888;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+
+        .option-card.locked {
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+        .option-card.selected.locked { opacity: 1; }
+
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        .modal-overlay.active { opacity: 1; pointer-events: auto; }
+        
+        .modal-box {
+            background: #0f1219;
+            border: 1px solid #d4af37;
+            border-radius: 20px;
+            padding: 25px;
+            width: 85%;
+            max-width: 350px;
+            text-align: center;
+            box-shadow: 0 0 35px rgba(212, 175, 55, 0.5);
+        }
+        .modal-icon { font-size: 40px; margin-bottom: 10px; }
+        .modal-title { font-size: 18px; font-weight: 800; color: #fff; margin-bottom: 8px; }
+        .modal-desc { font-size: 12px; color: #a0a5b5; margin-bottom: 15px; line-height: 1.4; }
+        .modal-code {
+            background: rgba(212, 175, 55, 0.15);
+            border: 1px dashed #d4af37;
+            padding: 10px;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 800;
+            color: #ffe066;
+            margin-bottom: 18px;
+            word-break: break-all;
+        }
+        .modal-btn {
+            background: #d4af37;
+            color: #000;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 10px;
+            font-weight: 800;
+            cursor: pointer;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+<canvas id="bgCanvas"></canvas>
+
+<div class="card">
+    <div class="top-bar">
+        <span class="tag" id="tag_text">VIP EXCLUSIVE PREDICTION</span>
+        <select class="lang-select" id="langSelect" onchange="changeLanguage(this.value)">
+            <option value="en">English</option>
+            <option value="zh">中文</option>
+            <option value="es">Español</option>
+            <option value="fr">Français</option>
+            <option value="de">Deutsch</option>
+            <option value="ja">日本語</option>
+        </select>
+    </div>
+
+    <div class="header">
+        <div class="vegas-badge">★ TO FABULOUS LAS VEGAS ★</div>
+        <div class="title" id="title_text">Championship Night</div>
+        <div class="subtitle" id="subtitle_text">Predict the decision winner & claim luxury rewards</div>
+    </div>
+
+    <div class="poster-hero-stage" id="heroStage">
+        <div class="fighter-half fighter-garcia">
+            <div class="fighter-name-large garcia-text">GARCIA</div>
+            <div class="fighter-subtext">RYAN "KING"</div>
+        </div>
+        
+        <div class="vs-badge-center">VS</div>
+
+        <div class="fighter-half fighter-benn">
+            <div class="fighter-name-large benn-text">BENN</div>
+            <div class="fighter-subtext" style="text-align: right;">CONOR "THE DESTROYER"</div>
+        </div>
+    </div>
+
+    <div class="section-title" id="sec_title">Predict Decision Winner</div>
+    
+    <div class="option-group">
+        <!-- 卡片 1 (Garcia) -->
+        <div class="option-card" id="card_garcia" onclick="selectCard('garcia')">
+            <div class="option-card-content">
+                <div class="option-left">
+                    <div class="check-mark"></div>
+                    <div class="option-info">
+                        <span class="option-title" id="opt_garcia">Ryan Garcia Win</span>
+                        <span class="option-desc" id="desc_garcia">Win via Judges' Scorecards</span>
+                    </div>
+                </div>
+                <div class="reward-badge" id="badge_garcia">200 USD Voucher</div>
+            </div>
+            <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: 62%;"></div></div>
+        </div>
+
+        <!-- 卡片 2 (Benn) -->
+        <div class="option-card" id="card_benn" onclick="selectCard('benn')">
+            <div class="option-card-content">
+                <div class="option-left">
+                    <div class="check-mark"></div>
+                    <div class="option-info">
+                        <span class="option-title" id="opt_benn">Conor Benn Win</span>
+                        <span class="option-desc" id="desc_benn">Win via Judges' Scorecards</span>
+                    </div>
+                </div>
+                <div class="reward-badge" id="badge_benn">100 USD Voucher</div>
+            </div>
+            <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: 38%;"></div></div>
+        </div>
+    </div>
+
+    <button class="submit-btn" id="btn_submit" onclick="submitPrediction()">Lock In My VIP Reward</button>
+</div>
+
+<div class="modal-overlay" id="modalOverlay">
+    <div class="modal-box">
+        <div class="modal-icon">🏆</div>
+        <div class="modal-title" id="modal_title">Prediction Locked!</div>
+        <div class="modal-desc" id="modal_desc">Your VIP Pass & prediction code have been automatically copied to your clipboard. Send it to your agent now.</div>
+        <div class="modal-code" id="modal_code">VIP-PASS-8888</div>
+        <button class="modal-btn" onclick="closeModal()" id="modal_btn">Got It</button>
+    </div>
+</div>
+
+<script>
+    const i18n = {
+        en: {
+            tag: "VIP EXCLUSIVE PREDICTION", title: "Championship Night", subtitle: "Predict the decision winner & claim luxury rewards",
+            secTitle: "Predict Decision Winner", opt_garcia: "Ryan Garcia Win", desc_garcia: "Win via Judges' Scorecards", badge_garcia: "200 USD Voucher",
+            opt_benn: "Conor Benn Win", desc_benn: "Win via Judges' Scorecards", badge_benn: "100 USD Voucher",
+            btn: "Lock In My VIP Reward", btnLocked: "Prediction Locked", modalTitle: "Prediction Locked!",
+            modalDesc: "Your VIP Pass & prediction code have been automatically copied to your clipboard. Send it to your agent now.",
+            modalBtn: "Got It", selectAlert: "Please select a fighter to win!"
+        },
+        zh: {
+            tag: "VIP 专属限定竞猜", title: "拉斯维加斯金腰带之夜", subtitle: "预测判定获胜者 · 兑换顶级购表礼金",
+            secTitle: "预测判定获胜拳手", opt_garcia: "莱恩·加西亚 判定获胜", desc_garcia: "裁判计分判定获胜", badge_garcia: "200 USD 优惠券",
+            opt_benn: "康纳·本 判定获胜", desc_benn: "裁判计分判定获胜", badge_benn: "100 USD 优惠券",
+            btn: "锁定我的 VIP 专属礼", btnLocked: "竞猜选择已锁定", modalTitle: "竞猜已成功锁定！",
+            modalDesc: "您的 VIP 竞猜凭证码已自动复制至剪贴板，请直接粘贴发送给您的客服专员。",
+            modalBtn: "我知道了", selectAlert: "请选择您预测获胜的拳手！"
+        },
+        es: {
+            tag: "PREDICCIÓN EXCLUSIVA VIP", title: "Noche de Campeonato", subtitle: "Predice al ganador por decisión y reclama premios",
+            secTitle: "Ganador por Decisión", opt_garcia: "Victoria de Ryan Garcia", desc_garcia: "Victoria por Tarjeta de Jueces", badge_garcia: "200 USD Cupón",
+            opt_benn: "Victoria de Conor Benn", desc_benn: "Victoria por Tarjeta de Jueces", badge_benn: "100 USD Cupón",
+            btn: "Bloquear Mi Premio VIP", btnLocked: "Predicción Bloqueada", modalTitle: "¡Predicción Bloqueada!",
+            modalDesc: "Su pase VIP se ha copiado al portapapeles. Envíelo a su agente.", modalBtn: "Entendido", selectAlert: "¡Por favor selecciona un luchador!"
+        },
+        fr: {
+            tag: "PRÉDICTION EXCLUSIVE VIP", title: "Nuit du Championnat", subtitle: "Prédisez le gagnant par décision & obtenez vos privilèges",
+            secTitle: "Gagnant par Décision", opt_garcia: "Victoire de Ryan Garcia", desc_garcia: "Victoire aux points des juges", badge_garcia: "200 USD Coupon",
+            opt_benn: "Victoire de Conor Benn", desc_benn: "Victoire aux points des juges", badge_benn: "100 USD Coupon",
+            btn: "Verrouiller Mon Privilège VIP", btnLocked: "Prédiction Verrouillée", modalTitle: "Prédiction Verrouillée!",
+            modalDesc: "Votre pass VIP a été copié dans le presse-papiers. Envoyez-le à votre agent.", modalBtn: "D'accord", selectAlert: "Veuillez sélectionner un lutteur!"
+        },
+        de: {
+            tag: "VIP EXKLUSIVE VORHERSAGE", title: "Meisterschaftsnacht", subtitle: "Sieg nach Punkten vorhersagen & Luxusprämien sichern",
+            secTitle: "Sieger nach Punkten", opt_garcia: "Sieg Ryan Garcia", desc_garcia: "Sieg nach Punkten der Punktrichter", badge_garcia: "200 USD Gutschein",
+            opt_benn: "Sieg Conor Benn", desc_benn: "Sieg nach Punkten der Punktrichter", badge_benn: "100 USD Gutschein",
+            btn: "VIP-Prämie Sichern", btnLocked: "Vorhersage Gesperrt", modalTitle: "Vorhersage Gesperrt!",
+            modalDesc: "Ihr VIP-Pass wurde in die Zwischenablage kopiert. Senden Sie ihn an Ihren Agenten.", modalBtn: "Verstanden", selectAlert: "Bitte wählen Sie einen Kämpfer aus!"
+        },
+        ja: {
+            tag: "VIP限定勝敗予想", title: "ラスベガス・ナイト", subtitle: "判定勝利者を予想して高級特典をゲット",
+            secTitle: "判定勝利者の予想", opt_garcia: "ライアン・ガルシア 判定勝利", desc_garcia: "判定による勝利", badge_garcia: "200 USD クーポン",
+            opt_benn: "コナー・ベン 判定勝利", desc_benn: "判定による勝利", badge_benn: "100 USD クーポン",
+            btn: "VIP特典をロックする", btnLocked: "予想ロック済み", modalTitle: "予想がロックされました！",
+            modalDesc: "VIPパスコードがクリップボードにコピーされました。担当者に送信してください。", modalBtn: "了解", selectAlert: "選手を選択してください！"
+        }
+    };
+
+    let currentLang = 'en';
+    let selectedFighterKey = null;
+    let isLocked = false;
+
+    function getUrlParameter(name) {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get(name);
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+        initParticles();
+
+        const savedFighter = localStorage.getItem('vegas_prediction_fighter');
+        const savedTicket = localStorage.getItem('vegas_prediction_ticket');
+
+        if (savedFighter && savedTicket) {
+            isLocked = true;
+            selectedFighterKey = savedFighter;
+            
+            const targetCard = document.getElementById(`card_${savedFighter}`);
+            if (targetCard) targetCard.classList.add('selected');
+
+            document.querySelectorAll('.option-card').forEach(card => card.classList.add('locked'));
+            
+            const btn = document.getElementById('btn_submit');
+            btn.disabled = true;
+            btn.innerText = i18n[currentLang].btnLocked;
+
+            applyHeroStageEffect(savedFighter);
+        }
+    });
+
+    /* 优化后的核心选中逻辑 */
+    function selectCard(fighterKey) {
+        if (isLocked) return;
+
+        // 移除所有选中的样式
+        document.getElementById('card_garcia').classList.remove('selected');
+        document.getElementById('card_benn').classList.remove('selected');
+
+        // 给当前卡片加上选中样式
+        const targetCard = document.getElementById(`card_${fighterKey}`);
+        if (targetCard) {
+            targetCard.classList.add('selected');
+        }
+
+        selectedFighterKey = fighterKey;
+        applyHeroStageEffect(fighterKey);
+    }
+
+    function applyHeroStageEffect(fighterKey) {
+        const heroStage = document.getElementById('heroStage');
+        heroStage.className = 'poster-hero-stage';
+
+        if (fighterKey === 'garcia') {
+            heroStage.classList.add('active-garcia');
+        } else if (fighterKey === 'benn') {
+            heroStage.classList.add('active-benn');
+        }
+    }
+
+    function submitPrediction() {
+        if (isLocked) return;
+
+        if (!selectedFighterKey) {
+            alert(i18n[currentLang].selectAlert);
+            return;
+        }
+
+        const customCode = getUrlParameter('code') || getUrlParameter('uid') || null;
+        const selectedTitle = document.querySelector('.option-card.selected .option-title').innerText;
+        const randomPass = "VIP-PASS-" + Math.floor(1000 + Math.random() * 9000);
+        
+        let ticketCode = customCode ? `${randomPass} | CODE: ${customCode} [${selectedTitle}]` : `${randomPass} [${selectedTitle}]`;
+        
+        localStorage.setItem('vegas_prediction_fighter', selectedFighterKey);
+        localStorage.setItem('vegas_prediction_ticket', ticketCode);
+        isLocked = true;
+
+        if (navigator.clipboard && window.isSecureContext) {
+            navigator.clipboard.writeText(ticketCode);
+        } else {
+            const textArea = document.createElement("textarea");
+            textArea.value = ticketCode;
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textArea);
+        }
+
+        document.querySelectorAll('.option-card').forEach(card => card.classList.add('locked'));
+        const btn = document.getElementById('btn_submit');
+        btn.disabled = true;
+        btn.innerText = i18n[currentLang].btnLocked;
+
+        document.getElementById('modal_code').innerText = ticketCode;
+        document.getElementById('modalOverlay').classList.add('active');
+    }
+
+    function closeModal() {
+        document.getElementById('modalOverlay').classList.remove('active');
+    }
+
+    function changeLanguage(lang) {
+        currentLang = lang;
+        const t = i18n[lang];
+        document.getElementById('tag_text').innerText = t.tag;
+        document.getElementById('title_text').innerText = t.title;
+        document.getElementById('subtitle_text').innerText = t.subtitle;
+        document.getElementById('sec_title').innerText = t.secTitle;
+        
+        document.getElementById('opt_garcia').innerText = t.opt_garcia;
+        document.getElementById('desc_garcia').innerText = t.desc_garcia;
+        document.getElementById('badge_garcia').innerText = t.badge_garcia;
+
+        document.getElementById('opt_benn').innerText = t.opt_benn;
+        document.getElementById('desc_benn').innerText = t.desc_benn;
+        document.getElementById('badge_benn').innerText = t.badge_benn;
+
+        const btn = document.getElementById('btn_submit');
+        btn.innerText = isLocked ? t.btnLocked : t.btn;
+
+        document.getElementById('modal_title').innerText = t.modalTitle;
+        document.getElementById('modal_desc').innerText = t.modalDesc;
+        document.getElementById('modal_btn').innerText = t.modalBtn;
+    }
+
+    function initParticles() {
+        const canvas = document.getElementById('bgCanvas');
+        const ctx = canvas.getContext('2d');
+        
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        resize();
+        window.addEventListener('resize', resize);
+
+        const particles = [];
+        for (let i = 0; i < 45; i++) {
+            particles.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                radius: Math.random() * 3 + 1,
+                color: Math.random() > 0.5 ? '#ff4500' : '#d4af37',
+                speedY: -(Math.random() * 1.2 + 0.3),
+                speedX: (Math.random() - 0.5) * 0.5,
+                alpha: Math.random() * 0.8 + 0.2
+            });
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.y += p.speedY;
+                p.x += p.speedX;
+                p.alpha -= 0.002;
+
+                if (p.y < 0 || p.alpha <= 0) {
+                    p.y = canvas.height + 10;
+                    p.x = Math.random() * canvas.width;
+                    p.alpha = Math.random() * 0.8 + 0.2;
+                }
+
+                ctx.save();
+                ctx.globalAlpha = p.alpha;
+                ctx.fillStyle = p.color;
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.restore();
+            });
+            requestAnimationFrame(animate);
+        }
+        animate();
+    }
+</script>
+
+</body>
+</html>
