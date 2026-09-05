@@ -152,7 +152,7 @@
             filter: brightness(0.55);
         }
 
-        /* 拳手人物：更强去除灰底 */
+        /* 拳手人物：统一暗色海报风格，不硬抠图 */
         .fighter-figure {
             position: absolute;
             bottom: 0;
@@ -172,30 +172,45 @@
             object-fit: contain;
             object-position: center bottom;
 
-            /* 增强去灰底，提升对比度，弱化背景灰色噪点 */
-            mix-blend-mode: normal;
+            /* 统一成黑金暗色体育海报风 */
             filter:
-                drop-shadow(0 18px 35px rgba(0, 0, 0, 0.45))
-                brightness(1.15)
-                contrast(1.25)
-                saturate(1.25)
-                hue-rotate(2deg);
+                drop-shadow(0 0 18px rgba(0, 0, 0, 0.85))
+                drop-shadow(0 12px 24px rgba(0, 0, 0, 0.95))
+                brightness(0.92)
+                contrast(1.18)
+                saturate(1.35)
+                sepia(0.18);
 
             transition: all 0.45s ease;
         }
 
+        /* 人物底部暗色渐变遮罩，让人物和页面融合 */
+        .fighter-figure::before {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 42%;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.55), transparent);
+            z-index: 3;
+            pointer-events: none;
+        }
+
+        /* 人物底部光晕，代替抠图边缘 */
         .fighter-figure::after {
             content: "";
             position: absolute;
-            bottom: -10px;
+            bottom: -12px;
             left: 50%;
-            width: 72%;
-            height: 16px;
-            background: radial-gradient(circle, rgba(0, 0, 0, 0.55), transparent 70%);
+            width: 76%;
+            height: 22px;
+            background: radial-gradient(circle, rgba(255, 174, 0, 0.35), transparent 70%);
             border-radius: 50%;
             transform: translateX(-50%);
-            filter: blur(8px);
+            filter: blur(12px);
             transition: all 0.45s ease;
+            z-index: 2;
         }
 
         .figure-garcia {
@@ -206,33 +221,35 @@
             right: 4%;
         }
 
-        /* 选中时人物放大 + 发光描边 */
+        /* 选中时人物轻微放大 + 金色/橙色外发光 */
         .fight-banner.select-left .figure-garcia {
-            transform: scale(1.08);
+            transform: scale(1.06);
         }
 
         .fight-banner.select-left .figure-garcia img {
             filter:
                 drop-shadow(0 0 12px rgba(255, 122, 0, 0.85))
-                drop-shadow(0 0 24px rgba(255, 122, 0, 0.55))
-                drop-shadow(0 18px 35px rgba(0, 0, 0, 0.45))
-                brightness(1.20)
-                contrast(1.30)
-                saturate(1.30);
+                drop-shadow(0 0 22px rgba(255, 122, 0, 0.55))
+                drop-shadow(0 12px 24px rgba(0, 0, 0, 0.95))
+                brightness(1.05)
+                contrast(1.25)
+                saturate(1.45)
+                sepia(0.22);
         }
 
         .fight-banner.select-right .figure-benn {
-            transform: scale(1.08);
+            transform: scale(1.06);
         }
 
         .fight-banner.select-right .figure-benn img {
             filter:
                 drop-shadow(0 0 12px rgba(255, 215, 0, 0.85))
-                drop-shadow(0 0 24px rgba(255, 215, 0, 0.55))
-                drop-shadow(0 18px 35px rgba(0, 0, 0, 0.45))
-                brightness(1.20)
-                contrast(1.30)
-                saturate(1.30);
+                drop-shadow(0 0 22px rgba(255, 215, 0, 0.55))
+                drop-shadow(0 12px 24px rgba(0, 0, 0, 0.95))
+                brightness(1.05)
+                contrast(1.25)
+                saturate(1.45)
+                sepia(0.22);
         }
 
         /* 中间 VS 创新能量环 */
@@ -318,29 +335,40 @@
             }
         }
 
-        /* 选手名字与描述保留 */
+        /* 选手名字与描述 */
         .player-name-big {
             font-size: clamp(20px, 4.5vw, 32px);
             font-weight: 900;
             position: relative;
-            z-index: 2;
+            z-index: 4;
             margin-top: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .left-name {
             color: #ff8c28;
+            text-shadow:
+                0 0 8px rgba(255, 122, 0, 0.8),
+                0 0 16px rgba(255, 122, 0, 0.5);
         }
 
         .right-name {
             color: #e9c252;
+            text-shadow:
+                0 0 8px rgba(255, 215, 0, 0.8),
+                0 0 16px rgba(255, 215, 0, 0.5);
         }
 
         .player-sub {
             font-size: 12px;
-            opacity: 0.8;
+            opacity: 0.85;
             position: relative;
-            z-index: 2;
+            z-index: 4;
             margin-top: 4px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.75);
         }
 
         .predict-label {
@@ -390,240 +418,4 @@
             border-radius: 50%;
             border: 2px solid #666;
             display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: 0.3s;
-            flex-shrink: 0;
-        }
-
-        .option-item.active .radio-circle {
-            border-color: #ffc830;
-        }
-
-        .radio-circle::after {
-            content: "";
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: #ffc830;
-            transform: scale(0);
-            transition: 0.28s transform ease;
-        }
-
-        .option-item.active .radio-circle::after {
-            transform: scale(1);
-        }
-
-        .option-title {
-            font-size: 17px;
-            font-weight: bold;
-        }
-
-        .option-desc {
-            color: #a0a4b0;
-            font-size: 13px;
-            margin-top: 3px;
-        }
-
-        .voucher-tag {
-            background: linear-gradient(90deg, #b48418, #e2b432);
-            color: #000;
-            font-weight: bold;
-            padding: 9px 14px;
-            border-radius: 10px;
-            font-size: 12px;
-            white-space: nowrap;
-        }
-
-        .progress-bar-wrap {
-            width: 100%;
-            height: 5px;
-            background: #2c2d36;
-            border-radius: 4px;
-            margin-top: -6px;
-            margin-bottom: 18px;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #ff6b00, #ffd233);
-            border-radius: 4px;
-            transition: width 0.5s ease;
-        }
-
-        .submit-btn {
-            width: 100%;
-            padding: 15px;
-            margin-top: 8px;
-            border-radius: 14px;
-            border: none;
-            font-weight: bold;
-            font-size: 16px;
-            background: linear-gradient(90deg, #ff7000, #ffc52b);
-            color: #000;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        .submit-btn:disabled {
-            opacity: 0.35;
-            cursor: not-allowed;
-        }
-
-        /* 小手机适配 */
-        @media (max-width: 480px) {
-            .prediction-card {
-                padding: 14px 12px 20px;
-            }
-
-            .fight-banner {
-                height: 230px;
-            }
-
-            .fighter-figure {
-                width: 38%;
-                height: 72%;
-            }
-
-            .option-item {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-
-            .voucher-tag {
-                align-self: stretch;
-                text-align: center;
-            }
-        }
-
-        /* 横屏手机/小平板适配 */
-        @media (min-width: 640px) and (max-width: 900px) {
-            .prediction-card {
-                max-width: 760px;
-            }
-
-            .fight-banner {
-                height: 300px;
-            }
-
-            .fighter-figure {
-                width: 40%;
-                height: 75%;
-            }
-        }
-    </style>
-</head>
-<body>
-    <div class="prediction-card">
-        <div class="header-bar">
-            <div class="vip-tag">VIP EXCLUSIVE PREDICTION</div>
-            <select class="lang-select">
-                <option>English</option>
-            </select>
-        </div>
-
-        <div class="title-area">
-            <div class="sub-head">★ TO FABULOUS LAS VEGAS ★</div>
-            <h1>Championship Night</h1>
-
-            <!-- 比赛日期 -->
-            <div class="event-date">September 12 • 8pm ET • on Paramount</div>
-
-            <div class="desc-text">Predict the decision winner & claim luxury rewards</div>
-        </div>
-
-        <div class="fight-banner not-select" id="fightBanner">
-            <!-- 左侧 Garcia -->
-            <div class="fighter-figure figure-garcia">
-                <img src="./garcia.png" alt="Garcia">
-            </div>
-
-            <div class="side-left">
-                <div class="player-name-big left-name">GARCIA</div>
-                <div class="player-sub">RYAN "KING"</div>
-            </div>
-
-            <!-- 中间 VS 能量环 -->
-            <div class="vs-center-wrap">
-                <div class="vs-circle">
-                    <div class="vs-inner-glow"></div>
-                    VS
-                </div>
-            </div>
-
-            <!-- 右侧 Benn -->
-            <div class="fighter-figure figure-benn">
-                <img src="./benn.png" alt="Benn">
-            </div>
-
-            <div class="side-right">
-                <div class="player-name-big right-name">BENN</div>
-                <div class="player-sub">CONOR "THE DESTROYER"</div>
-            </div>
-        </div>
-
-        <div class="predict-label">PREDICT DECISION WINNER</div>
-
-        <div class="option-item" data-val="garcia">
-            <div class="option-left">
-                <div class="radio-circle"></div>
-                <div>
-                    <div class="option-title">Ryan Garcia Win</div>
-                    <div class="option-desc">Win via Judges' Scorecards</div>
-                </div>
-            </div>
-            <div class="voucher-tag">200 USD Voucher</div>
-        </div>
-        <div class="progress-bar-wrap">
-            <div class="progress-fill" style="width:72%"></div>
-        </div>
-
-        <div class="option-item" data-val="benn">
-            <div class="option-left">
-                <div class="radio-circle"></div>
-                <div>
-                    <div class="option-title">Conor Benn Win</div>
-                    <div class="option-desc">Win via Judges' Scorecards</div>
-                </div>
-            </div>
-            <div class="voucher-tag">100 USD Voucher</div>
-        </div>
-        <div class="progress-bar-wrap">
-            <div class="progress-fill" style="width:28%"></div>
-        </div>
-
-        <button class="submit-btn" id="submitBtn" disabled>Submit My Prediction</button>
-    </div>
-
-<script>
-    const banner = document.getElementById('fightBanner');
-    const items = document.querySelectorAll('.option-item');
-    const submitBtn = document.getElementById('submitBtn');
-    let selectedVal = null;
-
-    items.forEach(item => {
-        item.addEventListener('click', () => {
-            items.forEach(i => i.classList.remove('active'));
-            item.classList.add('active');
-            selectedVal = item.dataset.val;
-            submitBtn.disabled = false;
-
-            banner.className = 'fight-banner';
-
-            if (selectedVal === 'garcia') {
-                banner.classList.add('select-left');
-            }
-
-            if (selectedVal === 'benn') {
-                banner.classList.add('select-right');
-            }
-        });
-    });
-
-    submitBtn.addEventListener('click', () => {
-        if (!selectedVal) return;
-        alert(`Your prediction submitted: ${selectedVal}`);
-    });
-</script>
-</body>
-</html>
+            align-items:<[SILENT_never_used_51bce0c785ca2f68081bfa7d91973934]>
