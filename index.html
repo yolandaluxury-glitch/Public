@@ -18,7 +18,6 @@
             overflow-x: hidden;
             position: relative;
         }
-
         #bgCanvas {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -26,7 +25,6 @@
             z-index: 0;
             opacity: 0.65;
         }
-
         .card { 
             width: 100%; 
             max-width: 450px; 
@@ -40,7 +38,6 @@
             z-index: 10;
             overflow: hidden;
         }
-
         .card::before {
             content: '';
             position: absolute;
@@ -48,14 +45,12 @@
             background: linear-gradient(90deg, transparent, #ff4500, #ffe066, #ff4500, transparent);
             box-shadow: 0 0 15px #ff4500;
         }
-
         .top-bar { 
             display: flex; 
             justify-content: space-between; 
             align-items: center; 
             margin-bottom: 14px; 
         }
-
         .tag { 
             background: linear-gradient(135deg, #ff4500, #d4af37); 
             color: #000; 
@@ -68,7 +63,6 @@
             box-shadow: 0 0 15px rgba(255, 69, 0, 0.6);
             display: inline-block;
         }
-
         .lang-select {
             background: rgba(255, 255, 255, 0.08);
             border: 1px solid rgba(212, 175, 55, 0.5);
@@ -83,7 +77,6 @@
             z-index: 20;
         }
         .lang-select option { background: #0f1219; color: #fff; }
-
         .header { text-align: center; margin-bottom: 18px; }
         
         .vegas-badge {
@@ -96,7 +89,6 @@
             text-shadow: 0 0 8px rgba(212, 175, 55, 0.8);
             margin-bottom: 4px;
         }
-
         .title { 
             font-size: 24px; 
             font-weight: 900; 
@@ -107,7 +99,6 @@
             text-shadow: 0 4px 20px rgba(0,0,0,0.8);
         }
         .subtitle { font-size: 11px; color: #a0a5b5; margin-top: 4px; }
-
         .poster-hero-stage {
             position: relative;
             width: 100%;
@@ -120,7 +111,6 @@
             display: flex;
             box-shadow: inset 0 0 30px rgba(0,0,0,0.9), 0 10px 25px rgba(0,0,0,0.8);
         }
-
         .fighter-half {
             flex: 1;
             height: 100%;
@@ -131,16 +121,23 @@
             padding: 15px;
             transition: all 0.4s ease;
         }
-
+        .fighter-img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            object-position: center;
+            pointer-events: none;
+        }
         .fighter-garcia {
             background: linear-gradient(135deg, rgba(255, 69, 0, 0.4) 0%, rgba(10, 10, 15, 0.85) 80%);
             border-right: 1px solid rgba(255, 255, 255, 0.1);
         }
-
         .fighter-benn {
             background: linear-gradient(225deg, rgba(212, 175, 55, 0.35) 0%, rgba(10, 10, 15, 0.85) 80%);
         }
-
         .fighter-name-large {
             font-size: 26px;
             font-weight: 900;
@@ -149,6 +146,7 @@
             line-height: 0.9;
             letter-spacing: 1px;
             z-index: 2;
+            position: relative;
         }
         .garcia-text {
             background: linear-gradient(180deg, #ffffff, #ff7b00);
@@ -161,7 +159,6 @@
             -webkit-text-fill-color: transparent;
             text-align: right;
         }
-
         .fighter-subtext {
             font-size: 9px;
             font-weight: 800;
@@ -169,8 +166,9 @@
             color: rgba(255,255,255,0.6);
             margin-top: 4px;
             text-transform: uppercase;
+            position: relative;
+            z-index:2;
         }
-
         .vs-badge-center {
             position: absolute;
             top: 50%;
@@ -191,12 +189,10 @@
             box-shadow: 0 0 25px #ff4500, 0 0 10px #ffe066;
             z-index: 5;
         }
-
         .poster-hero-stage.active-garcia .fighter-garcia { flex: 1.3; }
         .poster-hero-stage.active-garcia .fighter-benn { opacity: 0.4; }
         .poster-hero-stage.active-benn .fighter-benn { flex: 1.3; }
         .poster-hero-stage.active-benn .fighter-garcia { opacity: 0.4; }
-
         .section-title { 
             font-size: 11px; 
             color: #d4af37; 
@@ -207,7 +203,6 @@
             display: flex;
             align-items: center;
         }
-
         .option-group { 
             display: flex; 
             flex-direction: column; 
@@ -230,7 +225,6 @@
             user-select: none;
             -webkit-tap-highlight-color: transparent;
         }
-
         .option-card-content {
             display: flex;
             justify-content: space-between;
@@ -238,18 +232,15 @@
             width: 100%;
             pointer-events: none; /* 内部元素不拦截点击，直接触发外部卡片 */
         }
-
         .option-card:hover:not(.locked) {
             border-color: rgba(212, 175, 55, 0.8);
             transform: translateY(-2px);
         }
-
         .option-card.selected { 
             border-color: #d4af37; 
             background: linear-gradient(135deg, rgba(212, 175, 55, 0.25) 0%, rgba(20, 24, 33, 0.95) 100%); 
             box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
         }
-
         .check-mark {
             width: 20px;
             height: 20px;
@@ -260,12 +251,10 @@
             align-items: center;
             justify-content: center;
         }
-
         .option-card.selected .check-mark {
             background: #d4af37;
             border-color: #d4af37;
         }
-
         .check-mark::after {
             content: '';
             width: 5px;
@@ -276,9 +265,7 @@
             display: none;
             margin-bottom: 2px;
         }
-
         .option-card.selected .check-mark::after { display: block; }
-
         .option-left { display: flex; align-items: center; }
         .option-info { display: flex; flex-direction: column; }
         .option-title { font-size: 14px; font-weight: 800; color: #fff; }
@@ -293,7 +280,6 @@
             border-radius: 10px; 
             white-space: nowrap;
         }
-
         .progress-bar-bg {
             width: 100%;
             height: 4px;
@@ -307,7 +293,6 @@
             height: 100%;
             background: linear-gradient(90deg, #ff4500, #ffe066);
         }
-
         .submit-btn { 
             width: 100%; 
             background: linear-gradient(135deg, #ffe066 0%, #d4af37 50%, #aa7c11 100%); 
@@ -330,13 +315,11 @@
             cursor: not-allowed;
             box-shadow: none;
         }
-
         .option-card.locked {
             cursor: not-allowed;
             opacity: 0.6;
         }
         .option-card.selected.locked { opacity: 1; }
-
         .modal-overlay {
             position: fixed;
             top: 0; left: 0; right: 0; bottom: 0;
@@ -389,9 +372,7 @@
     </style>
 </head>
 <body>
-
 <canvas id="bgCanvas"></canvas>
-
 <div class="card">
     <div class="top-bar">
         <span class="tag" id="tag_text">VIP EXCLUSIVE PREDICTION</span>
@@ -404,27 +385,25 @@
             <option value="ja">日本語</option>
         </select>
     </div>
-
     <div class="header">
         <div class="vegas-badge">★ TO FABULOUS LAS VEGAS ★</div>
         <div class="title" id="title_text">Championship Night</div>
         <div class="subtitle" id="subtitle_text">Predict the decision winner & claim luxury rewards</div>
     </div>
-
     <div class="poster-hero-stage" id="heroStage">
         <div class="fighter-half fighter-garcia">
+            <img class="fighter-img" src="./garcia.png" alt="Garcia">
             <div class="fighter-name-large garcia-text">GARCIA</div>
             <div class="fighter-subtext">RYAN "KING"</div>
         </div>
         
         <div class="vs-badge-center">VS</div>
-
         <div class="fighter-half fighter-benn">
+            <img class="fighter-img" src="./benn.png" alt="Benn">
             <div class="fighter-name-large benn-text">BENN</div>
             <div class="fighter-subtext" style="text-align: right;">CONOR "THE DESTROYER"</div>
         </div>
     </div>
-
     <div class="section-title" id="sec_title">Predict Decision Winner</div>
     
     <div class="option-group">
@@ -442,7 +421,6 @@
             </div>
             <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: 62%;"></div></div>
         </div>
-
         <!-- 卡片 2 (Benn) -->
         <div class="option-card" id="card_benn" onclick="selectCard('benn')">
             <div class="option-card-content">
@@ -458,10 +436,8 @@
             <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: 38%;"></div></div>
         </div>
     </div>
-
     <button class="submit-btn" id="btn_submit" onclick="submitPrediction()">Lock In My VIP Reward</button>
 </div>
-
 <div class="modal-overlay" id="modalOverlay">
     <div class="modal-box">
         <div class="modal-icon">🏆</div>
@@ -471,7 +447,6 @@
         <button class="modal-btn" onclick="closeModal()" id="modal_btn">Got It</button>
     </div>
 </div>
-
 <script>
     const i18n = {
         en: {
@@ -502,14 +477,14 @@
             secTitle: "Gagnant par Décision", opt_garcia: "Victoire de Ryan Garcia", desc_garcia: "Victoire aux points des juges", badge_garcia: "200 USD Coupon",
             opt_benn: "Victoire de Conor Benn", desc_benn: "Victoire aux points des juges", badge_benn: "100 USD Coupon",
             btn: "Verrouiller Mon Privilège VIP", btnLocked: "Prédiction Verrouillée", modalTitle: "Prédiction Verrouillée!",
-            modalDesc: "Votre pass VIP a été copié dans le presse-papiers. Envoyez-le à votre agent.", modalBtn: "D'accord", selectAlert: "Veuillez sélectionner un lutteur!"
+            modalDesc: "Votre pass VIP a été copié dans le presse‑papiers. Envoyez‑le à votre agent.", modalBtn: "D'accord", selectAlert: "Veuillez sélectionner un lutteur!"
         },
         de: {
             tag: "VIP EXKLUSIVE VORHERSAGE", title: "Meisterschaftsnacht", subtitle: "Sieg nach Punkten vorhersagen & Luxusprämien sichern",
             secTitle: "Sieger nach Punkten", opt_garcia: "Sieg Ryan Garcia", desc_garcia: "Sieg nach Punkten der Punktrichter", badge_garcia: "200 USD Gutschein",
             opt_benn: "Sieg Conor Benn", desc_benn: "Sieg nach Punkten der Punktrichter", badge_benn: "100 USD Gutschein",
-            btn: "VIP-Prämie Sichern", btnLocked: "Vorhersage Gesperrt", modalTitle: "Vorhersage Gesperrt!",
-            modalDesc: "Ihr VIP-Pass wurde in die Zwischenablage kopiert. Senden Sie ihn an Ihren Agenten.", modalBtn: "Verstanden", selectAlert: "Bitte wählen Sie einen Kämpfer aus!"
+            btn: "VIP‑Prämie Sichern", btnLocked: "Vorhersage Gesperrt", modalTitle: "Vorhersage Gesperrt!",
+            modalDesc: "Ihr VIP‑Pass wurde in die Zwischenablage kopiert. Senden Sie ihn an Ihren Agenten.", modalBtn: "Verstanden", selectAlert: "Bitte wählen Sie einen Kämpfer aus!"
         },
         ja: {
             tag: "VIP限定勝敗予想", title: "ラスベガス・ナイト", subtitle: "判定勝利者を予想して高級特典をゲット",
@@ -519,86 +494,69 @@
             modalDesc: "VIPパスコードがクリップボードにコピーされました。担当者に送信してください。", modalBtn: "了解", selectAlert: "選手を選択してください！"
         }
     };
-
     let currentLang = 'en';
     let selectedFighterKey = null;
     let isLocked = false;
-
     function getUrlParameter(name) {
         const urlParams = new URLSearchParams(window.location.search);
         return urlParams.get(name);
     }
-
     window.addEventListener('DOMContentLoaded', () => {
         initParticles();
-
         const savedFighter = localStorage.getItem('vegas_prediction_fighter');
         const savedTicket = localStorage.getItem('vegas_prediction_ticket');
-
         if (savedFighter && savedTicket) {
             isLocked = true;
             selectedFighterKey = savedFighter;
             
             const targetCard = document.getElementById(`card_${savedFighter}`);
             if (targetCard) targetCard.classList.add('selected');
-
             document.querySelectorAll('.option-card').forEach(card => card.classList.add('locked'));
             
             const btn = document.getElementById('btn_submit');
             btn.disabled = true;
             btn.innerText = i18n[currentLang].btnLocked;
-
             applyHeroStageEffect(savedFighter);
         }
     });
-
     /* 优化后的核心选中逻辑 */
     function selectCard(fighterKey) {
         if (isLocked) return;
-
         // 移除所有选中的样式
         document.getElementById('card_garcia').classList.remove('selected');
         document.getElementById('card_benn').classList.remove('selected');
-
         // 给当前卡片加上选中样式
         const targetCard = document.getElementById(`card_${fighterKey}`);
         if (targetCard) {
             targetCard.classList.add('selected');
         }
-
         selectedFighterKey = fighterKey;
         applyHeroStageEffect(fighterKey);
     }
-
     function applyHeroStageEffect(fighterKey) {
         const heroStage = document.getElementById('heroStage');
-        heroStage.className = 'poster-hero-stage';
-
+        heroStage.className = 'poster‑hero‑stage';
         if (fighterKey === 'garcia') {
-            heroStage.classList.add('active-garcia');
+            heroStage.classList.add('active‑garcia');
         } else if (fighterKey === 'benn') {
-            heroStage.classList.add('active-benn');
+            heroStage.classList.add('active‑benn');
         }
     }
-
     function submitPrediction() {
         if (isLocked) return;
-
         if (!selectedFighterKey) {
             alert(i18n[currentLang].selectAlert);
             return;
         }
-
         const customCode = getUrlParameter('code') || getUrlParameter('uid') || null;
-        const selectedTitle = document.querySelector('.option-card.selected .option-title').innerText;
-        const randomPass = "VIP-PASS-" + Math.floor(1000 + Math.random() * 9000);
+        const selectedTitle = document.querySelector('.option‑card.selected .option‑title').innerText;
+        const randomPass = "VIP‑PASS‑" + Math.floor(1000 + Math.random() * 9000);
         
         let ticketCode = customCode ? `${randomPass} | CODE: ${customCode} [${selectedTitle}]` : `${randomPass} [${selectedTitle}]`;
         
         localStorage.setItem('vegas_prediction_fighter', selectedFighterKey);
         localStorage.setItem('vegas_prediction_ticket', ticketCode);
         isLocked = true;
-
         if (navigator.clipboard && window.isSecureContext) {
             navigator.clipboard.writeText(ticketCode);
         } else {
@@ -609,20 +567,16 @@
             document.execCommand('copy');
             document.body.removeChild(textArea);
         }
-
-        document.querySelectorAll('.option-card').forEach(card => card.classList.add('locked'));
+        document.querySelectorAll('.option‑card').forEach(card => card.classList.add('locked'));
         const btn = document.getElementById('btn_submit');
         btn.disabled = true;
         btn.innerText = i18n[currentLang].btnLocked;
-
         document.getElementById('modal_code').innerText = ticketCode;
         document.getElementById('modalOverlay').classList.add('active');
     }
-
     function closeModal() {
         document.getElementById('modalOverlay').classList.remove('active');
     }
-
     function changeLanguage(lang) {
         currentLang = lang;
         const t = i18n[lang];
@@ -634,19 +588,15 @@
         document.getElementById('opt_garcia').innerText = t.opt_garcia;
         document.getElementById('desc_garcia').innerText = t.desc_garcia;
         document.getElementById('badge_garcia').innerText = t.badge_garcia;
-
         document.getElementById('opt_benn').innerText = t.opt_benn;
         document.getElementById('desc_benn').innerText = t.desc_benn;
         document.getElementById('badge_benn').innerText = t.badge_benn;
-
         const btn = document.getElementById('btn_submit');
         btn.innerText = isLocked ? t.btnLocked : t.btn;
-
         document.getElementById('modal_title').innerText = t.modalTitle;
         document.getElementById('modal_desc').innerText = t.modalDesc;
         document.getElementById('modal_btn').innerText = t.modalBtn;
     }
-
     function initParticles() {
         const canvas = document.getElementById('bgCanvas');
         const ctx = canvas.getContext('2d');
@@ -657,7 +607,6 @@
         }
         resize();
         window.addEventListener('resize', resize);
-
         const particles = [];
         for (let i = 0; i < 45; i++) {
             particles.push({
@@ -670,20 +619,17 @@
                 alpha: Math.random() * 0.8 + 0.2
             });
         }
-
         function animate() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             particles.forEach(p => {
                 p.y += p.speedY;
                 p.x += p.speedX;
                 p.alpha -= 0.002;
-
                 if (p.y < 0 || p.alpha <= 0) {
                     p.y = canvas.height + 10;
                     p.x = Math.random() * canvas.width;
                     p.alpha = Math.random() * 0.8 + 0.2;
                 }
-
                 ctx.save();
                 ctx.globalAlpha = p.alpha;
                 ctx.fillStyle = p.color;
@@ -697,6 +643,5 @@
         animate();
     }
 </script>
-
 </body>
 </html>
