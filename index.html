@@ -64,171 +64,311 @@
             -webkit-background-clip:text;
             color:transparent;
         }
+        .event-date {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 215, 0, 0.35);
+            border-radius: 20px;
+            padding: 8px 16px;
+            color: #ffd700;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
         .desc-text{
             color:#b4b8c3;
             margin-top:8px;
         }
-        /* 对战Banner */
-        .fight-banner{
-            position:relative;
-            height:320px;
-            border-radius:16px;
-            overflow:hidden;
-            display:flex;
-            margin-bottom:28px;
+        /* 对战Banner：参考拳击海报风格 */
+        .fight-banner {
+            position: relative;
+            height: clamp(340px, 56vw, 380px);
+            border-radius: 16px;
+            overflow: hidden;
+            display: flex;
+            margin-bottom: 28px;
+            background:
+                radial-gradient(circle at center, rgba(255, 174, 0, 0.18), transparent 35%),
+                linear-gradient(180deg, #05060a 0%, #111318 48%, #05060a 100%);
         }
-        .side-left, .side-right{
-            flex:1;
-            position:relative;
-            transition: all 0.45s ease;
-            display:flex;
-            flex-direction:column;
-            align-items:center;
-            justify-content:flex-end;
-            padding-bottom:20px;
-            z-index:10;
-        }
-        .side-left{
-            background:linear-gradient(90deg,#702c10,#3b1c0e);
-        }
-        .side-right{
-            background:linear-gradient(-90deg,#423b18,#272410);
-        }
-        .fight-banner.not-select .side-left,.fight-banner.not-select .side-right{
-            filter: brightness(0.75);
-        }
-        .fight-banner.select-left .side-left{
-            filter:brightness(1.15);
-            box-shadow: inset 0 0 60px #ff800055;
-        }
-        .fight-banner.select-left .side-right{
-            filter:brightness(0.55);
-        }
-        .fight-banner.select-right .side-right{
-            filter:brightness(1.15);
-            box-shadow: inset 0 0 60px #ffc42255;
-        }
-        .fight-banner.select-right .side-left{
-            filter:brightness(0.55);
-        }
-        /* 拳手半身人物，站立在VS两侧，无圆形裁剪 */
+
+        /* 左右人物站位：海报式对峙 */
         .fighter-figure {
-            position:absolute;
-            bottom:0;
-            width:44%;
-            height:84%;
-            display:flex;
-            align-items:flex-end;
-            justify-content:center;
-            z-index:2;
+            position: absolute;
+            bottom: 0;
+            width: 48%;
+            height: 88%;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            z-index: 2;
             transition: all 0.45s ease;
-            transform-origin:center bottom;
+            transform-origin: center bottom;
         }
+
         .fighter-figure img {
-            height:100%;
-            width:auto;
-            max-width:92%;
-            object-fit:contain;
-            object-position:center bottom;
-            /* 基础立体：投影 + 侧边轮廓光 */
+            height: 100%;
+            width: auto;
+            max-width: 96%;
+            object-fit: contain;
+            object-position: center bottom;
+
+            /* 暗色电影感融合 */
             filter:
-                drop-shadow(0 22px 28px rgba(0,0,0,0.8));
+                drop-shadow(0 24px 30px rgba(0, 0, 0, 0.95))
+                drop-shadow(0 0 18px rgba(255, 255, 255, 0.08))
+                brightness(0.95)
+                contrast(1.25)
+                saturate(1.35)
+                sepia(0.18);
+
             transition: all 0.45s ease;
         }
+
         .figure-garcia {
-            left:3%;
+            left: 0;
         }
-        .figure-garcia img{
+
+        .figure-garcia img {
             filter:
-                drop-shadow(0 22px 28px rgba(0,0,0,0.8))
-                drop-shadow(-14px 0 20px rgba(255,122,0,0.32));
+                drop-shadow(0 24px 30px rgba(0, 0, 0, 0.95))
+                drop-shadow(-16px 0 22px rgba(255, 122, 0, 0.35))
+                brightness(0.95)
+                contrast(1.25)
+                saturate(1.35)
+                sepia(0.18);
         }
+
         .figure-benn {
-            right:3%;
-        }
-        .figure-benn img{
-            filter:
-                drop-shadow(0 22px 28px rgba(0,0,0,0.8))
-                drop-shadow(14px 0 20px rgba(255,215,0,0.32));
-        }
-        /* 地面径向投影，模拟人物站在banner里面 */
-        .fighter-figure::after{
-            content:"";
-            position:absolute;
-            bottom:-10px;
-            left:50%;
-            width:70%;
-            height:20px;
-            border-radius:50%;
-            transform:translateX(-50%);
-            background:radial-gradient(ellipse, rgba(0,0,0,0.7), transparent 70%);
-            filter:blur(10px);
+            right: 0;
         }
 
-        /* 选中状态：向中间偏移+放大，发光增强 */
-        .fight-banner.select-left .figure-garcia{
-            transform: translateX(-3%) scale(1.07);
-        }
-        .fight-banner.select-left .figure-garcia img{
+        .figure-benn img {
             filter:
-                drop-shadow(0 26px 34px rgba(0,0,0,0.9))
-                drop-shadow(-18px 0 26px rgba(255,122,0,0.45))
-                drop-shadow(0 0 16px rgba(255,122,0,0.7));
-        }
-        .fight-banner.select-right .figure-benn{
-            transform: translateX(3%) scale(1.07);
-        }
-        .fight-banner.select-right .figure-benn img{
-            filter:
-                drop-shadow(0 26px 34px rgba(0,0,0,0.9))
-                drop-shadow(18px 0 26px rgba(255,215,0,0.45))
-                drop-shadow(0 0 16px rgba(255,215,0,0.7));
+                drop-shadow(0 24px 30px rgba(0, 0, 0, 0.95))
+                drop-shadow(16px 0 22px rgba(255, 215, 0, 0.35))
+                brightness(0.95)
+                contrast(1.25)
+                saturate(1.35)
+                sepia(0.18);
         }
 
-        .player-name-big{
-            font-size:44px;
-            font-weight:900;
+        /* 人物底部暗色渐变，让人物和Banner自然融合 */
+        .fighter-figure::before {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 45%;
+            background: linear-gradient(to top, rgba(5, 6, 10, 0.95), rgba(5, 6, 10, 0.6), transparent);
+            z-index: 3;
+            pointer-events: none;
+        }
+
+        /* 地面接触阴影 */
+        .fighter-figure::after {
+            content: "";
+            position: absolute;
+            bottom: -12px;
+            left: 50%;
+            width: 72%;
+            height: 22px;
+            border-radius: 50%;
+            transform: translateX(-50%);
+            background: radial-gradient(ellipse, rgba(0, 0, 0, 0.75), transparent 70%);
+            filter: blur(12px);
+            z-index: 4;
+        }
+
+        /* 选中状态：人物向中间轻微突出 */
+        .fight-banner.select-left .figure-garcia {
+            transform: translateX(-4%) scale(1.06);
+        }
+
+        .fight-banner.select-left .figure-garcia img {
+            filter:
+                drop-shadow(0 28px 36px rgba(0, 0, 0, 0.95))
+                drop-shadow(-20px 0 28px rgba(255, 122, 0, 0.45))
+                drop-shadow(0 0 18px rgba(255, 122, 0, 0.75))
+                brightness(1.08)
+                contrast(1.35)
+                saturate(1.45);
+        }
+
+        .fight-banner.select-right .figure-benn {
+            transform: translateX(4%) scale(1.06);
+        }
+
+        .fight-banner.select-right .figure-benn img {
+            filter:
+                drop-shadow(0 28px 36px rgba(0, 0, 0, 0.95))
+                drop-shadow(20px 0 28px rgba(255, 215, 0, 0.45))
+                drop-shadow(0 0 18px rgba(255, 215, 0, 0.75))
+                brightness(1.08)
+                contrast(1.35)
+                saturate(1.45);
+        }
+
+        /* 左右名字与描述，压在人物上方 */
+        .side-left,
+        .side-right {
+            position: absolute;
+            bottom: 0;
+            width: 48%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end;
+            padding-bottom: 22px;
+            z-index: 10;
+            pointer-events: none;
+        }
+
+        .side-left {
+            left: 0;
+        }
+
+        .side-right {
+            right: 0;
+        }
+
+        .player-name-big {
+            font-size: clamp(22px, 4.8vw, 46px);
+            font-weight: 900;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            position: relative;
+            z-index: 12;
+            text-shadow:
+                0 0 8px rgba(0, 0, 0, 0.95),
+                0 0 16px rgba(0, 0, 0, 0.8);
+        }
+
+        .left-name {
+            color: #ff8c28;
+            text-shadow:
+                0 0 8px rgba(255, 122, 0, 0.9),
+                0 0 16px rgba(255, 122, 0, 0.55),
+                0 0 24px rgba(0, 0, 0, 0.95);
+        }
+
+        .right-name {
+            color: #e9c252;
+            text-shadow:
+                0 0 8px rgba(255, 215, 0, 0.9),
+                0 0 16px rgba(255, 215, 0, 0.55),
+                0 0 24px rgba(0, 0, 0, 0.95);
+        }
+
+        .player-sub {
+            font-size: 13px;
+            opacity: 0.85;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            position: relative;
+            z-index: 12;
+            margin-top: 6px;
+            color: rgba(255, 255, 255, 0.78);
+            text-shadow:
+                0 0 6px rgba(0, 0, 0, 0.95),
+                0 0 12px rgba(0, 0, 0, 0.8);
+        }
+
+        /* 中间 VS：更有拳击海报冲击力 */
+        .vs-center-wrap {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 15;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .vs-circle {
             position:relative;
-            z-index:12;
-        }
-        .left-name{
-            color:#ff8c28;
-        }
-        .right-name{
-            color:#e9c252;
-        }
-        .player-sub{
-            font-size:16px;
-            opacity:0.85;
-            position:relative;
-            z-index:12;
-        }
-
-        .vs-center-wrap{
-            position:absolute;
-            left:50%;
-            top:50%;
-            transform:translate(-50%,-50%);
-            z-index:15;
-        }
-        .vs-circle{
-            width:86px;
-            height:86px;
-            border-radius:50%;
-            background:#000;
-            border:4px solid #ff7700;
-            box-shadow: 0 0 22px #ff7700;
-            display:flex;
-            justify-content:center;
-            align-items:center;
-            font-size:28px;
-            font-weight:bold;
-            color:#fff;
+            width: clamp(72px, 15vw, 90px);
+            height: clamp(72px, 15vw, 90px);
+            border-radius: 50%;
+            background: radial-gradient(circle, #000 0%, #111 100%);
+            border: 4px solid transparent;
+            border-image: linear-gradient(135deg, #ff7700, #ffd700, #ff7700) 1;
+            box-shadow:
+                0 0 22px rgba(255, 119, 0, 0.8),
+                0 0 42px rgba(255, 119, 0, 0.45);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: clamp(24px, 5vw, 30px);
+            font-weight: 900;
+            color: #fff;
+            letter-spacing: 1px;
             animation: vsPulse 2.2s infinite ease-in-out;
         }
-        @keyframes vsPulse{
-            0%,100%{box-shadow:0 0 22px #ff7700;}
-            50%{box-shadow:0 0 36px #ffaa33;}
+
+        .vs-circle::before,
+        .vs-circle::after {
+            content: "";
+            position: absolute;
+            border-radius: 50%;
+            border: 2px solid rgba(255, 215, 0, 0.35);
+            animation: vsRipple 1.8s infinite ease-out;
+        }
+
+        .vs-circle::before {
+            width: 160%;
+            height: 160%;
+            animation-delay: 0s;
+        }
+
+        .vs-circle::after {
+            width: 210%;
+            height: 210%;
+            animation-delay: 0.9s;
+        }
+
+        @keyframes vsPulse {
+            0%, 100% {
+                box-shadow: 0 0 22px rgba(255, 119, 0, 0.8);
+            }
+            50% {
+                box-shadow: 0 0 38px rgba(255, 170, 0, 0.95);
+            }
+        }
+
+        @keyframes vsRipple {
+            0% {
+                transform: scale(0.5);
+                opacity: 0.9;
+            }
+            100% {
+                transform: scale(1.6);
+                opacity: 0;
+            }
+        }
+
+        .vs-inner-glow {
+            position: absolute;
+            width: 62%;
+            height: 62%;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 215, 0, 0.25), transparent 70%);
+            animation: innerPulse 2.2s infinite ease-in-out;
+        }
+
+        @keyframes innerPulse {
+            0%, 100% {
+                opacity: 0.65;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.15);
+            }
         }
 
         .predict-label{
@@ -348,26 +488,33 @@
         <div class="title-area">
             <div class="sub-head">★ TO FABULOUS LAS VEGAS ★</div>
             <h1>Championship Night</h1>
+            <div class="event-date">September 12 • 8pm ET • on Paramount</div>
             <div class="desc-text">Predict the decision winner & claim luxury rewards</div>
         </div>
         <div class="fight-banner not-select" id="fightBanner">
-            <!-- 左侧 Garcia 人物站位 -->
+            <!-- 左侧 Garcia -->
             <div class="fighter-figure figure-garcia">
                 <img src="./garcia.png" alt="Garcia">
             </div>
+
             <div class="side-left">
                 <div class="player-name-big left-name">GARCIA</div>
                 <div class="player-sub">RYAN "KING"</div>
             </div>
 
+            <!-- 中间 VS -->
             <div class="vs-center-wrap">
-                <div class="vs-circle">VS</div>
+                <div class="vs-circle">
+                    <div class="vs-inner-glow"></div>
+                    VS
+                </div>
             </div>
 
-            <!-- 右侧 Benn 人物站位 -->
+            <!-- 右侧 Benn -->
             <div class="fighter-figure figure-benn">
                 <img src="./benn.png" alt="Benn">
             </div>
+
             <div class="side-right">
                 <div class="player-name-big right-name">BENN</div>
                 <div class="player-sub">CONOR "THE DESTROYER"</div>
